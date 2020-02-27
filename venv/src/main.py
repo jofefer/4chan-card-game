@@ -90,3 +90,4 @@ class Game:
 
 g1 = Game([["Pepe","male"],["Manoli","female"]])
 g1.play()
+print("")

@@ -7,6 +7,10 @@ DIR_CARDS = "C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-
 
 class Card:
     def __init__(self, id, type_card, name, description, effect_in_turn, debug = DEBUG):
+        """ effect_in_turn:
+        0 - Pick someone
+        1 -
+        """
         self.id = id
         self.type_card = type_card
         self.name = name
@@ -68,7 +72,10 @@ class Player:
 class Game:
     def __init__(self, playersList):
         self.deck = Deck()
-        self.players = [Player(*x) for x in playersList]
+        self.players = [Player(*x) for x in playersList] #need to implement addPlayer
+
+    def addPlayer(self):
+        pass
 
     def play(self):
         turnos = 3
@@ -78,13 +85,35 @@ class Game:
                 print("END, no more cards")
                 break
             print("-----------------------------------------")
-            actual_player = self.players[turno % len(self.players)]
+            player_tourn = turno % len(self.players)
+            actual_player = self.players[player_tourn]
 
-            actual_player.addCard(self.deck.drawCard())
-            print("Player {0}, choose one of your cards:".format(actual_player.name))
-            actual_player.showCards()
+            new_card = self.deck.drawCard()
+
+            print("{0} tourn ".format(actual_player.name))
+            print("the type of your card is {0} ".format( new_card.type_card))
+            if int(new_card.type_card) == 0:
+                print(new_card.description)
+            else:
+                actual_player.addCard(new_card)
+
+            menu = True
+            while menu:
+                print("\nWhat do you want to do? \n"
+                      "\t1- Do you want to know your cards \n"
+                      "\t2- End your turn")
+                option = int(input())
+                if option == 1:
+                    print("ha sido 1")
+                    print(actual_player.showCards())
+                if option == 2:
+                    menu = False
+                    continue
+
+
 
             turnos -= 1
+            turno += 1
 
 
 

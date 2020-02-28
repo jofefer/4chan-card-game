@@ -7,7 +7,7 @@ if DEBUG:
 
 DIR_CARDS = "C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-card-game\\venv\\csv\\listado_cartas.csv"
 
-#TODO: implement this class to extract all info
+# TODO : implement this class to extract all info
 # ocr url ---> https://ocr.space/OCRAPI
 class Ocr:
     def convert_all(self):

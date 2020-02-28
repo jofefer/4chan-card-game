@@ -1,5 +1,7 @@
 import csv
 import random
+import requests
+
 
 DEBUG = False
 if DEBUG:
@@ -12,6 +14,33 @@ DIR_CARDS = "C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-
 class Ocr:
     def convert_all(self):
         pass
+
+    def ocr_space_file(self, filename, overlay=False, api_key='f12742c9b888957', language='eng'):
+        """ OCR.space API request with local file.
+            Python3.5 - not tested on 2.7
+        :param filename: Your file path & name.
+        :param overlay: Is OCR.space overlay required in your response.
+                        Defaults to False.
+        :param api_key: OCR.space API key.
+                        Defaults to 'helloworld'.
+        :param language: Language code to be used in OCR.
+                        List of available language codes can be found on https://ocr.space/OCRAPI
+                        Defaults to 'en'.
+        :return: Result in JSON format.
+        """
+
+        payload = {'isOverlayRequired': overlay,
+                   'apikey': api_key,
+                   'language': language,
+                   }
+        with open(filename, 'rb') as f:
+            r = requests.post('https://api.ocr.space/parse/image',
+                              files={filename: f},
+                              data=payload,
+                              verify=False
+                              )
+        return r.content.decode()
+
 
 class Card:
     #TODO add card IMG
@@ -137,6 +166,9 @@ class Game:
 
 
 
-g1 = Game([["Pepe","male"],["Manoli","female"], ["player3", "transexual"]])
-g1.play()
-print("")
+#g1 = Game([["Pepe","male"],["Manoli","female"], ["player3", "transexual"]])
+#g1.play()
+
+ocr1 = Ocr()
+test1 = ocr1.ocr_space_file('C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-card-game\\venv\\img\\1294747177383.jpg')
+print(test1)

@@ -17,15 +17,6 @@ DIR_IMG = 'C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-ca
 # ocr url ---> https://ocr.space/OCRAPI
 class Ocr:
     def convert_all(self):
-        pass
-        """ ASI ES COMO PARSEAMOS EL JSON ----------FALTA IMPLANTAR
-        test1 = ocr_space_file('C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-card-game\\venv\\img\\1294747177383.jpg')
-        parsed_json = (json.loads(test1))
-        #print(json.dumps(parsed_json, indent=4, sort_keys=True))
-        cardText = parsed_json['ParsedResults'][0]['ParsedText'].split('\r\n')
-        type_card, name, *description = cardText
-        description = ''.join(description)
-        """
 
         # getting max ID and adding 1
         max_id = 0
@@ -53,6 +44,7 @@ class Ocr:
                 type_card = 2
             if type_card == "Status":
                 type_card = 3
+
 
             with open(DIR_CARDS, 'a+') as file:
                 file.write('\n' + str(max_id) + "|" + str(type_card) + "|" + description + "|" + '0')

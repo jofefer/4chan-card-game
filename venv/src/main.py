@@ -1,6 +1,7 @@
 import csv
 import random
 import requests
+import json
 
 
 DEBUG = False
@@ -14,6 +15,13 @@ DIR_CARDS = "C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-
 class Ocr:
     def convert_all(self):
         pass
+        """ ASI ES COMO PARSEAMOS EL JSON ----------FALTA IMPLANTAR
+        parsed_json = (json.loads(test1))
+        print(json.dumps(parsed_json, indent=4, sort_keys=True))
+        cardText = parsed_json['ParsedResults'][0]['ParsedText'].split('\r\n')
+        type_card, name, *description = cardText
+        description = ''.join(description)
+        """
 
     def ocr_space_file(self, filename, overlay=False, api_key='f12742c9b888957', language='eng'):
         """ OCR.space API request with local file.

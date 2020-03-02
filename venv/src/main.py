@@ -2,6 +2,7 @@ import csv
 import random
 import requests
 import json
+import os
 
 
 DEBUG = False
@@ -9,6 +10,8 @@ if DEBUG:
     print("............DEBUG MODE............")
 
 DIR_CARDS = "C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-card-game\\venv\\csv\\listado_cartas.csv"
+DIR_IMG = 'C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-card-game\\venv\\img\\'
+
 
 # TODO : implement this class to extract all info
 # ocr url ---> https://ocr.space/OCRAPI
@@ -16,12 +19,49 @@ class Ocr:
     def convert_all(self):
         pass
         """ ASI ES COMO PARSEAMOS EL JSON ----------FALTA IMPLANTAR
+        test1 = ocr_space_file('C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-card-game\\venv\\img\\1294747177383.jpg')
         parsed_json = (json.loads(test1))
-        print(json.dumps(parsed_json, indent=4, sort_keys=True))
+        #print(json.dumps(parsed_json, indent=4, sort_keys=True))
         cardText = parsed_json['ParsedResults'][0]['ParsedText'].split('\r\n')
         type_card, name, *description = cardText
         description = ''.join(description)
         """
+
+        # getting max ID and adding 1
+        max_id = 0
+        with open(DIR_CARDS, 'r') as file:
+            reader = csv.reader(file, delimiter='|')
+            for row in reader:
+                max_id = int(row[0])
+        max_id += 1
+
+        entries = os.listdir(DIR_IMG)
+
+        for entry in entries:
+            route = DIR_IMG + entry
+            ocr_pic = Ocr.ocr_space_file(self, route)
+            parsed_json = (json.loads(ocr_pic))
+            cardText = parsed_json['ParsedResults'][0]['ParsedText'].split('\r\n')
+            type_card, name, *description = cardText
+            description = ''.join(description)
+
+            if type_card == "Action":
+                type_card = 0
+            if type_card == "Instant":
+                type_card = 1
+            if type_card == "Mandatory":
+                type_card = 2
+
+            with open(DIR_CARDS, 'a+') as file:
+                file.write('\n' + str(max_id) + "|" + str(type_card) + "|" + description + "|" + '0')
+                max_id += 1
+
+
+
+
+
+
+
 
     def ocr_space_file(self, filename, overlay=False, api_key='f12742c9b888957', language='eng'):
         """ OCR.space API request with local file.
@@ -178,5 +218,5 @@ class Game:
 #g1.play()
 
 ocr1 = Ocr()
-test1 = ocr1.ocr_space_file('C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-card-game\\venv\\img\\1294747177383.jpg')
-print(test1)
+#test1 = ocr1.ocr_space_file('C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-card-game\\venv\\img\\1294747177383.jpg')
+ocr1.convert_all()

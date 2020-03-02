@@ -47,7 +47,7 @@ class Ocr:
 
 
             with open(DIR_CARDS, 'a+') as file:
-                file.write('\n' + str(max_id) + "|" + str(type_card) + "|" + description + "|" + '0')
+                file.write('\n' + str(max_id) + '|' + str(type_card) + "|" +name+ "|" + description + "|" + '0')
                 max_id += 1
 
 
@@ -200,11 +200,10 @@ class Game:
             turns -= 1
             turn += 1
 
-
-
-#g1 = Game([["Pepe","male"],["Manoli","female"], ["player3", "transexual"]])
-#g1.play()
-
 ocr1 = Ocr()
 #test1 = ocr1.ocr_space_file('C:\\Users\\jfemeniafe001\\Documents\\Python Scripts\\github\\4chan-card-game\\venv\\img\\1294747177383.jpg')
 ocr1.convert_all()
+
+g1 = Game([["Pepe","male"],["Manoli","female"], ["player3", "transexual"]])
+g1.play()
+

@@ -51,12 +51,6 @@ class Ocr:
                 max_id += 1
 
 
-
-
-
-
-
-
     def ocr_space_file(self, filename, overlay=False, api_key='f12742c9b888957', language='eng'):
         """ OCR.space API request with local file.
             Python3.5 - not tested on 2.7

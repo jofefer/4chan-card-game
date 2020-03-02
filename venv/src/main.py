@@ -51,6 +51,8 @@ class Ocr:
                 type_card = 1
             if type_card == "Mandatory":
                 type_card = 2
+            if type_card == "Status":
+                type_card = 3
 
             with open(DIR_CARDS, 'a+') as file:
                 file.write('\n' + str(max_id) + "|" + str(type_card) + "|" + description + "|" + '0')
